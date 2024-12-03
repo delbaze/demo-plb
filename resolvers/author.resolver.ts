@@ -1,4 +1,16 @@
-export const authors = [
+import graphqlFields from "graphql-fields";
+interface AuthorType {
+  [key: string]: string |number  | string[],
+  id: number;
+  name: string;
+  birthYear: number;
+  deathYear: number;
+  nationality: string;
+  notableWorks: string[];
+  biography: string;
+
+}
+export const authors: AuthorType[] = [
   {
     id: 1,
     name: "Antoine de Saint-Exupéry",
@@ -48,8 +60,18 @@ export const authors = [
 
 export default {
   Query: {
-    authors: () => {
-      return authors;
+    authors: (_: any, args: any, context: any, infos: any) => {
+      const fields = graphqlFields(infos);
+      const fieldsAsked = Object.keys(fields);
+      const data = authors.map((a) => {
+        let author: AuthorType = {} as AuthorType
+        fieldsAsked.map((f) => {
+            author[f] =  a[f]
+        })
+        return author
+      })
+
+      return data
     },
     findAuthor: (_ : any, args : any) => { // 4 arguments => 1 parent, 2 arguments, 3 : context, 4: infos
         return authors.find((a) => a.id == args.id);
