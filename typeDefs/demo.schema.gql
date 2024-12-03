@@ -1,0 +1,71 @@
+enum TypeEvent {
+    FESTIVAL
+    CONCERT @deprecated(reason: "Les concerts ne sont plus autorisés")
+}
+type Event {
+    id: ID
+    name: String
+    date: String
+}
+
+interface CommonEvent {
+    id: ID!
+    name: String
+    date: String
+}
+
+type Festival implements CommonEvent {
+    id: ID!
+    name: String
+    date: String
+    type: TypeEvent
+}
+type Theatre implements CommonEvent {
+    type: TypeEvent
+    location: String
+    id: ID!
+    name: String
+    date: String
+}
+
+type Concert implements CommonEvent {
+    id: ID!
+    name: String
+    date: String
+    closed: Boolean
+    type: TypeEvent
+
+}
+
+union SearchResult = Festival | Concert
+
+type Query {
+        findEvent(id: ID) : Event
+
+}
+
+
+
+
+
+# type Movie {
+#     type: CategoryEnum
+#     name: String
+# }
+
+# type Mutation {
+#     createMovie(data: CreateMovie): Movie
+
+# }
+
+# input CreateMovie {
+#     type: CategoryEnum
+#     name: String!
+# }
+
+# enum CategoryEnum {
+#     ADVENTURE
+#     COMEDY
+#     SCI_FI
+# }
+

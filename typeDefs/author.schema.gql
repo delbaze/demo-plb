@@ -1,0 +1,32 @@
+type Author {
+    id: ID
+    name: String
+    birthYear: Int
+    deathYear: Int
+    nationality: String
+    notableWorks: [String] 
+    biography: String
+    books: [Book]
+}
+
+type Query {
+    authors: [Author] #liste des auteurs
+    findAuthor(id: ID): Author
+} 
+
+type Mutation {
+    # createAuthor(name: String, birthYear: Int, deathYear: Int, nationality: String, notableWorks: [String], biography: String ): [Author
+    createAuthor(data: CreateAuthor ): [Author]
+
+}
+
+input CreateAuthor {
+    name: String!
+    birthYear: Int!
+    deathYear: Int
+    nationality: String!
+    notableWorks: [String]
+    biography: String 
+}
+
+

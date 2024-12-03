@@ -1,0 +1,15 @@
+    type Book {
+        id: ID
+        #title: String @deprecated(reason: "utilisez plutôt titre à la place de title")
+        title: String
+        author: Author
+        year: Int
+        genre: String
+        summary: String
+    }  
+
+
+
+    type Query {
+        books: [Book]  
+    } 
